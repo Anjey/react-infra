@@ -8,7 +8,7 @@ locals {
 }
 
 terraform {
-  source = "git::git@github.com:Anjey/react-module.git//cloudfront?ref=v0.1"
+  source = "git::git@github.com:Anjey/react-module.git//cloudfront?ref=v0.2"
   # source = "../../../../../modules//cloudfront"
 }
 
