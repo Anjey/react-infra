@@ -21,10 +21,11 @@ include {
 inputs = {
   environment             = local.environment
   domain_redirect_enabled = true
-  cdn_path_pattern        = ["/data", "/api"]
-  dns_name                = "react-project"
-  sub_domain_name         = "www.react-project.romexsoft.net"
-  domain_name             = "react-project.romexsoft.net"
+
+  cdn_path_pattern = ["/data", "/api"]
+  dns_name         = "react-project"
+  sub_domain_name  = "www.react-project.romexsoft.net"
+  domain_name      = "react-project.romexsoft.net"
   ssh_whitelist = {
     "188.163.113.206" = "Dudych Home"
     "194.44.153.62"   = "romexsoft_office"
