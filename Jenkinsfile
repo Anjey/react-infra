@@ -18,20 +18,7 @@ pipeline{
                 checkout scm
             }
         }
-        // stage ('Prepare source and init vars'){
-        //     agent any
-        //     steps {
-        //     echo 'git pull'
-        //     // sshagent(credentials: ['github-react']) 
-        //     // {
-        //     git branch: '$branch', credentialsId: 'github-react', url: 'https://github.com/Anjey/react-infra.git'
-        //         script {
-        //             sh 'git submodule update --recursive --init --remote'
-        //             sh 'git --git-dir="./.git" --work-tree="./" describe --always > ./VERSION.txt'
-                    
-        //         }
-        //     }
-        // }
+        
          stage ('terragrunt plan'){
             when {
                 anyOf {
