@@ -27,6 +27,18 @@ pipeline{
             }
         }
         
+        
+        stage("Prod") {
+            steps {
+                echo "${BRANCH_PROD}"
+            }
+        }
+        stage("dev") {
+            steps {
+                echo "${BRANCH_DEV}"
+            }
+        }
+
          stage ('terragrunt plan'){
             when {
                 anyOf {
