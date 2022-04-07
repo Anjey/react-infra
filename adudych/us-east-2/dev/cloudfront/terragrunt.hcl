@@ -8,8 +8,8 @@ locals {
 }
 
 terraform {
-  # source = "git::git@github.com:Anjey/react-module.git//cloudfront?ref=v0.2"
-  source = "../../../../../modules//cloudfront"
+  source = "git::git@github.com:Anjey/react-module.git//cloudfront?ref=v0.3"
+  # source = "../../../../../modules//cloudfront"
 }
 
 include {
@@ -20,7 +20,7 @@ include {
 
 inputs = {
   environment             = local.environment
-  domain_redirect_enabled = true
+  domain_redirect_enabled = false
 
   cdn_path_pattern     = ["/data", "/api"]
   dns_name             = "react-project"
