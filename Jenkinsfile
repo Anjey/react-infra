@@ -8,7 +8,7 @@ pipeline{
 
     environment {
         env=getEnvironment(env.BRANCH_NAME, env.BRANCH_DEV, env.BRANCH_STAGE, env.BRANCH_PROD)
-        AWS_REGION=getRegion(branch, env.BRANCH_DEV, env.BRANCH_PROD)
+        AWS_REGION=getRegion(env.BRANCH_NAME, env.BRANCH_DEV, env.BRANCH_PROD)
     }
 
 
