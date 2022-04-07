@@ -90,7 +90,7 @@ pipeline{
         }
     }
 
-}
+
 
 def getEnvironment(String branch, String BRANCH_DEV, String BRANCH_PROD) {
         if (branch == BRANCH_PROD) {
