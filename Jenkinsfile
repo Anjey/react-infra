@@ -10,18 +10,6 @@ pipeline{
         env=getEnvironment(env.BRANCH_NAME, env.BRANCH_STAGE, env.BRANCH_PROD)
     }
 
-    def getEnvironment(String branch, String BRANCH_DEV, String BRANCH_STAGE, String BRANCH_PROD) {
-        if (branch == BRANCH_PROD) {
-            return "prod"
-        }
-        if (branch == BRANCH_STAGE) {
-            return "stage"
-        }
-        if (branch == BRANCH_DEV) {
-            return "dev"
-        }
-        return "${branch}"
-    }
 
     stages{
         stage('Checkout') {
@@ -115,3 +103,16 @@ pipeline{
     }
 
 }
+
+def getEnvironment(String branch, String BRANCH_DEV, String BRANCH_STAGE, String BRANCH_PROD) {
+        if (branch == BRANCH_PROD) {
+            return "prod"
+        }
+        if (branch == BRANCH_STAGE) {
+            return "stage"
+        }
+        if (branch == BRANCH_DEV) {
+            return "dev"
+        }
+        return "${branch}"
+    }
