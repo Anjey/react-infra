@@ -1,5 +1,5 @@
 pipeline{
-    agent none
+    agent any
     parameters {
         string(defaultValue: "dev", name: 'BRANCH_DEV')
         string(defaultValue: "stage", name: 'BRANCH_STAGE')
