@@ -101,7 +101,7 @@ def getEnvironment(String branch, String BRANCH_DEV, String BRANCH_PROD) {
         return "${branch}"
     }
 
-def getRegion(String branchOrTag, String BRANCH_DEV,String BRANCH_DEV, String BRANCH_PROD) {
+def getRegion(String branchOrTag, String BRANCH_DEV, String BRANCH_PROD) {
     if (branchOrTag == BRANCH_PROD) {
     return "us-east-1"
     }
