@@ -1,14 +1,14 @@
 pipeline{
     agent none
-    // parameters {
-    //     string(defaultValue: "dev", name: 'BRANCH_DEV')
-    //     string(defaultValue: "stage", name: 'BRANCH_STAGE')
-    //     string(defaultValue: "main", name: 'BRANCH_PROD')
-    // }
+    parameters {
+        string(defaultValue: "dev", name: 'BRANCH_DEV')
+        string(defaultValue: "stage", name: 'BRANCH_STAGE')
+        string(defaultValue: "main", name: 'BRANCH_PROD')
+    }
 
     environment {
-        env=getEnvironment(branch, env.BRANCH_DEV, env.BRANCH_STAGE, env.BRANCH_PROD)
-        AWS_REGION=getRegion(branch, env.BRANCH_DEV, env.BRANCH_PROD)
+        env=getEnvironment(env.BRANCH_NAME, env.BRANCH_DEV, env.BRANCH_STAGE, env.BRANCH_PROD)
+        AWS_REGION=getRegion(env.BRANCH_NAME, env.BRANCH_DEV, env.BRANCH_PROD)
     }
 
 
