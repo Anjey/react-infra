@@ -48,7 +48,7 @@ pipeline{
 
         stage("BRANCH_NAME") {
             steps {
-                echo "${env.BRANCH_NAME}"
+                echo "${BRANCH_NAME}"
             }
         }
 
