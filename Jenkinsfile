@@ -1,7 +1,7 @@
 pipeline{
     agent any
     parameters {
-        string(defaultValue: "dev", name: 'BRANCH_DEV')
+        string(defaultValue: "dev1", name: 'BRANCH_DEV')
         string(defaultValue: "stage", name: 'BRANCH_STAGE')
         string(defaultValue: "main", name: 'BRANCH_PROD')
     }
@@ -27,7 +27,7 @@ pipeline{
             }
         }
         
-        
+
         stage("Prod") {
             steps {
                 echo "${BRANCH_PROD}"
@@ -35,7 +35,7 @@ pipeline{
         }
         stage("dev") {
             steps {
-                echo "${BRANCH_DEV}"
+                echo "${env.BRANCH_DEV}"
             }
         }
 
