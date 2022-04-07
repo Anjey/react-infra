@@ -96,7 +96,7 @@ pipeline{
                                     
                                     {
                                                     sh '''
-                    cd ./adudych/us-east-2/${env}/cloudfront && terragrunt init && terragrunt plan
+                    cd ./adudych/us-east-2/dev/cloudfront && terragrunt init && terragrunt plan
                     '''
                 }
             }
@@ -140,7 +140,7 @@ pipeline{
                                     
                                     {
                                                     sh '''
-                    cd ./adudych/us-east-2/${env}/cloudfront && terragrunt apply -auto-approve
+                    cd ./adudych/us-east-2/dev/cloudfront && terragrunt apply -auto-approve
                     '''
                 }
             }
