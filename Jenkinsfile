@@ -47,9 +47,9 @@ pipeline{
             }
         }
 
-        stage("AWS_REGION") {
+        stage("ENV") {
             steps {
-                echo "${AWS_REGION}"
+                echo "${env}"
             }
         }
 
