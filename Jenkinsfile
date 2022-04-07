@@ -6,10 +6,10 @@ pipeline{
         string(defaultValue: "main", name: 'BRANCH_PROD')
     }
 
-    // environment {
-    //     env=getEnvironment(branch, env.BRANCH_DEV, env.BRANCH_STAGE, env.BRANCH_PROD)
-    //     AWS_REGION=getRegion(branch, env.BRANCH_DEV, env.BRANCH_PROD)
-    // }
+    environment {
+        env=getEnvironment(branch, env.BRANCH_DEV, env.BRANCH_STAGE, env.BRANCH_PROD)
+        AWS_REGION=getRegion(branch, env.BRANCH_DEV, env.BRANCH_PROD)
+    }
 
 
     stages{
@@ -27,6 +27,7 @@ pipeline{
             }
         }
         
+        
 
         stage("Prod") {
             steps {
@@ -38,6 +39,19 @@ pipeline{
                 echo "${env.BRANCH_DEV}"
             }
         }
+
+        stage("ENV") {
+            steps {
+                echo "${env}"
+            }
+        }
+
+        stage("AWS_REGION") {
+            steps {
+                echo "${AWS_REGION}"
+            }
+        }
+
 
          stage ('terragrunt plan'){
             when {
