@@ -7,7 +7,7 @@ pipeline{
     }
 
     environment {
-        env=getEnvironment(env.BRANCH_NAME, env.BRANCH_STAGE, env.BRANCH_PROD)
+        env=getEnvironment(env.BRANCH_NAME, env.BRANCH_DEV, env.BRANCH_STAGE, env.BRANCH_PROD)
     }
 
 
