@@ -1,9 +1,9 @@
 pipeline{
     agent any
     parameters {
-        string(defaultValue: "dev1", name: 'BRANCH_DEV')
-        string(defaultValue: "stage", name: 'BRANCH_STAGE')
-        string(defaultValue: "main", name: 'BRANCH_PROD')
+        string(defaultValue: "", name: 'BRANCH_DEV')
+        string(defaultValue: "", name: 'BRANCH_STAGE')
+        string(defaultValue: "", name: 'BRANCH_PROD')
     }
 
     environment {
