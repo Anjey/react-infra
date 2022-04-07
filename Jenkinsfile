@@ -1,13 +1,14 @@
 pipeline{
     agent any
     parameters {
-        string(defaultValue: "", name: 'BRANCH_DEV')
-        string(defaultValue: "", name: 'BRANCH_PROD')
+        string(defaultValue: "dev", name: 'BRANCH_DEV')
+        string(defaultValue: "stage", name: 'BRANCH_STAGE')
+        string(defaultValue: "main", name: 'BRANCH_PROD')
     }
 
     environment {
-        env=getEnvironment(branch, env.BRANCH_DEV, env.BRANCH_PROD)
-        AWS_REGION=getRegion(branch, env.BRANCH_DEV, env.BRANCH_PROD)
+        env=getEnvironment(env.BRANCH_NAME, env.BRANCH_DEV, env.BRANCH_STAGE, env.BRANCH_PROD)
+        AWS_REGION=getRegion(env.BRANCH_NAME, env.BRANCH_DEV, env.BRANCH_PROD)
     }
 
 
@@ -38,7 +39,7 @@ pipeline{
                                     
                                     {
                                                     sh '''
-                    cd ./adudych/${AWS_REGION}/${env}/cloudfront && terragrunt init && terragrunt plan
+                    cd ./adudych/us-east-2/${env}/cloudfront && terragrunt init && terragrunt plan
                     '''
                 }
             }
@@ -63,13 +64,12 @@ pipeline{
                                     
                                     {
                                                     sh '''
-                    cd ./adudych/${AWS_REGION}/${env}/cloudfront && terragrunt apply -auto-approve
+                    cd ./adudych/us-east-2/${env}/cloudfront && terragrunt apply -auto-approve
                     '''
                 }
             }
         }
     }     
-}
 }
           
     post{
@@ -90,11 +90,14 @@ pipeline{
         }
     }
 
+}
 
-
-def getEnvironment(String branch, String BRANCH_DEV, String BRANCH_PROD) {
+def getEnvironment(String branch, String BRANCH_DEV, String BRANCH_STAGE, String BRANCH_PROD) {
         if (branch == BRANCH_PROD) {
             return "prod"
+        }
+        if (branch == BRANCH_STAGE) {
+            return "stage"
         }
         if (branch == BRANCH_DEV) {
             return "dev"
