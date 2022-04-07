@@ -8,7 +8,7 @@ pipeline{
 
     environment {
         env=getEnvironment(branch, env.BRANCH_DEV, env.BRANCH_STAGE, env.BRANCH_PROD)
-        AWS_REGION=getRegion(branch, env.BRANCH_DEV, env.BRANCH_PROD)
+        // AWS_REGION=getRegion(branch, env.BRANCH_DEV, env.BRANCH_PROD)
     }
 
 
@@ -139,11 +139,11 @@ def getEnvironment(String branch, String BRANCH_DEV, String BRANCH_STAGE, String
         return "${branch}"
     }
 
-def getRegion(String branchOrTag, String BRANCH_DEV, String BRANCH_PROD) {
-    if (branchOrTag == BRANCH_PROD) {
-    return "us-east-1"
-    }
-  if (branchOrTag == BRANCH_DEV) {
-    return "us-east-2"
-    }
-}
+// def getRegion(String branchOrTag, String BRANCH_DEV, String BRANCH_PROD) {
+//     if (branchOrTag == BRANCH_PROD) {
+//     return "us-east-1"
+//     }
+//   if (branchOrTag == BRANCH_DEV) {
+//     return "us-east-2"
+//     }
+// }
