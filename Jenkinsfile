@@ -1,15 +1,15 @@
 pipeline{
     agent any
-    parameters {
-        string(defaultValue: "dev", name: 'BRANCH_DEV')
-        string(defaultValue: "stage", name: 'BRANCH_STAGE')
-        string(defaultValue: "main", name: 'BRANCH_PROD')
-    }
+    // parameters {
+    //     string(defaultValue: "dev", name: 'BRANCH_DEV')
+    //     string(defaultValue: "stage", name: 'BRANCH_STAGE')
+    //     string(defaultValue: "main", name: 'BRANCH_PROD')
+    // }
 
-    environment {
-        env=getEnvironment(branch, env.BRANCH_DEV, env.BRANCH_STAGE, env.BRANCH_PROD)
-        AWS_REGION=getRegion(branch, env.BRANCH_DEV, env.BRANCH_PROD)
-    }
+    // environment {
+    //     env=getEnvironment(branch, env.BRANCH_DEV, env.BRANCH_STAGE, env.BRANCH_PROD)
+    //     AWS_REGION=getRegion(branch, env.BRANCH_DEV, env.BRANCH_PROD)
+    // }
 
 
     stages{
@@ -17,7 +17,7 @@ pipeline{
             steps {
                 deleteDir()
                 checkout scm
-                sh "printenv"
+                // sh "printenv"
             }
         }
 
