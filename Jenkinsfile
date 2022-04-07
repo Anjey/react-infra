@@ -16,7 +16,7 @@ pipeline{
 
     environment {
         env=getEnvironment(env.BRANCH_NAME, env.BRANCH_DEV, env.BRANCH_STAGE, env.BRANCH_PROD)
-        AWS_REGION=getRegion(env.BRANCH_NAME, env.BRANCH_DEV, env.BRANCH_PROD)
+        // AWS_REGION=getRegion(env.BRANCH_NAME, env.BRANCH_DEV, env.BRANCH_PROD)
     }
 
 
@@ -60,13 +60,9 @@ pipeline{
         }
 
 
-         stage ('terragrunt plan'){
+         stage ('terragrunt plan DEV'){
             when {
-                anyOf {
                     branch "${BRANCH_DEV}"
-                    branch "${BRANCH_PROD}"
-                    branch "${BRANCH_STAGE}"
-                }
             }
             steps {
                 withCredentials([[
@@ -79,19 +75,16 @@ pipeline{
                                     
                                     {
                                                     sh '''
-                    cd ./adudych/${AWS_REGION}/${env}/cloudfront && terragrunt init && terragrunt plan
+                    cd ./adudych/us-east-2/${env}/cloudfront && terragrunt init && terragrunt plan
                     '''
                 }
             }
         }
     }
-    stage ('terragrunt apply'){
+
+    stage ('terragrunt plan PROD'){
             when {
-                anyOf {
-                    branch "${BRANCH_DEV}"
                     branch "${BRANCH_PROD}"
-                    branch "${BRANCH_STAGE}"
-                }
             }
             steps {
                 withCredentials([[
@@ -104,12 +97,56 @@ pipeline{
                                     
                                     {
                                                     sh '''
-                    cd ./adudych/${AWS_REGION}/${env}/cloudfront && terragrunt apply -auto-approve
+                    cd ./adudych/us-east-1/${env}/cloudfront && terragrunt init && terragrunt plan
                     '''
                 }
             }
         }
-    }     
+    }
+
+    stage ('terragrunt apply DEV'){
+            when {
+                    branch "${BRANCH_DEV}"
+            }
+            steps {
+                withCredentials([[
+                                    $class: 'AmazonWebServicesCredentialsBinding',
+                                    credentialsId: "AWS_CREDENTIALS_JENKINS",
+                                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                                    ]]) {
+                    sshagent(credentials: ['github-react']) 
+                                    
+                                    {
+                                                    sh '''
+                    cd ./adudych/us-east-2/${env}/cloudfront && terragrunt apply -auto-approve
+                    '''
+                }
+            }
+        }
+    }
+
+     stage ('terragrunt apply PROD'){
+            when {
+                    branch "${BRANCH_PROD}"
+            }
+            steps {
+                withCredentials([[
+                                    $class: 'AmazonWebServicesCredentialsBinding',
+                                    credentialsId: "AWS_CREDENTIALS_JENKINS",
+                                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                                    ]]) {
+                    sshagent(credentials: ['github-react']) 
+                                    
+                                    {
+                                                    sh '''
+                    cd ./adudych/us-east-1/${env}/cloudfront && terragrunt apply -auto-approve
+                    '''
+                }
+            }
+        }
+    }   
 }   
 }
 
