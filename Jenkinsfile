@@ -1,22 +1,40 @@
 pipeline{
     agent any
+    environment {
+        BRANCH_DEV='dev'
+        BRANCH_STAGE='stage'
+        BRANCH_PROD='main'
+    }
+
     stages{
-        stage ('Prepare source and init vars'){
-            agent any
+        stage('Checkout') {
             steps {
-            echo 'git pull'
-            // sshagent(credentials: ['github-react']) 
-            // {
-            git branch: '$branch', credentialsId: 'github-react', url: 'https://github.com/Anjey/react-infra.git'
-                script {
-                    sh 'git submodule update --recursive --init --remote'
-                    sh 'git --git-dir="./.git" --work-tree="./" describe --always > ./VERSION.txt'
-                    
-                }
+                deleteDir()
+                checkout scm
             }
         }
+        // stage ('Prepare source and init vars'){
+        //     agent any
+        //     steps {
+        //     echo 'git pull'
+        //     // sshagent(credentials: ['github-react']) 
+        //     // {
+        //     git branch: '$branch', credentialsId: 'github-react', url: 'https://github.com/Anjey/react-infra.git'
+        //         script {
+        //             sh 'git submodule update --recursive --init --remote'
+        //             sh 'git --git-dir="./.git" --work-tree="./" describe --always > ./VERSION.txt'
+                    
+        //         }
+        //     }
+        // }
          stage ('terragrunt plan'){
-            agent any
+            when {
+                anyOf {
+                    branch "${BRANCH_DEV}"
+                    branch "${BRANCH_PROD}"
+                    branch "${BRANCH_STAGE}"
+                }
+            }
             steps {
                 withCredentials([[
                                     $class: 'AmazonWebServicesCredentialsBinding',
@@ -35,7 +53,13 @@ pipeline{
         }
     }
     stage ('terragrunt apply'){
-            agent any
+            when {
+                anyOf {
+                    branch "${BRANCH_DEV}"
+                    branch "${BRANCH_PROD}"
+                    branch "${BRANCH_STAGE}"
+                }
+            }
             steps {
                 withCredentials([[
                                     $class: 'AmazonWebServicesCredentialsBinding',
