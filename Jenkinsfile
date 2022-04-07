@@ -1,9 +1,26 @@
 pipeline{
     agent any
+    parameters {
+        string(defaultValue: "dev", name: 'BRANCH_DEV')
+        string(defaultValue: "stage", name: 'BRANCH_STAGE')
+        string(defaultValue: "main", name: 'BRANCH_PROD')
+    }
+
     environment {
-        BRANCH_DEV='dev'
-        BRANCH_STAGE='stage'
-        BRANCH_PROD='main'
+        env=getEnvironment(env.BRANCH_NAME, env.BRANCH_STAGE, env.BRANCH_PROD)
+    }
+
+    def getEnvironment(String branch, String BRANCH_DEV, String BRANCH_STAGE, String BRANCH_PROD) {
+        if (branch == BRANCH_PROD) {
+            return "prod"
+        }
+        if (branch == BRANCH_STAGE) {
+            return "stage"
+        }
+        if (branch == BRANCH_DEV) {
+            return "dev"
+        }
+        return "${branch}"
     }
 
     stages{
@@ -46,7 +63,7 @@ pipeline{
                                     
                                     {
                                                     sh '''
-                    cd ./adudych/us-east-2/dev/cloudfront && terragrunt init && terragrunt plan
+                    cd ./adudych/us-east-2/${env}/cloudfront && terragrunt init && terragrunt plan
                     '''
                 }
             }
@@ -71,7 +88,7 @@ pipeline{
                                     
                                     {
                                                     sh '''
-                    cd ./adudych/us-east-2/dev/cloudfront && terragrunt apply -auto-approve
+                    cd ./adudych/us-east-2/${env}/cloudfront && terragrunt apply -auto-approve
                     '''
                 }
             }
