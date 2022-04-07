@@ -1,10 +1,10 @@
 pipeline{
     agent any
-    // parameters {
-    //     string(defaultValue: "dev", name: 'BRANCH_DEV')
-    //     string(defaultValue: "stage", name: 'BRANCH_STAGE')
-    //     string(defaultValue: "main", name: 'BRANCH_PROD')
-    // }
+    parameters {
+        string(defaultValue: "dev", name: 'BRANCH_DEV')
+        string(defaultValue: "stage", name: 'BRANCH_STAGE')
+        string(defaultValue: "main", name: 'BRANCH_PROD')
+    }
 
     // environment {
     //     env=getEnvironment(branch, env.BRANCH_DEV, env.BRANCH_STAGE, env.BRANCH_PROD)
