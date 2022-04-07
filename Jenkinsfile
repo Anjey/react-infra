@@ -71,25 +71,25 @@ pipeline{
     }     
 }
           
-    post{
+//     post{
         
-        cleanup{
-            echo "cleanup"
-            cleanWs()
-            dir("${env.WORKSPACE}@tmp") {
-      deleteDir()
-    }
-        }
-        success{
-            echo "========pipeline executed successfully ========"
+//         cleanup{
+//             echo "cleanup"
+//             cleanWs()
+//             dir("${env.WORKSPACE}@tmp") {
+//       deleteDir()
+//     }
+//         }
+//         success{
+//             echo "========pipeline executed successfully ========"
             
-        }
-        failure{
-            echo "========pipeline execution failed========"
-        }
-    }
+//         }
+//         failure{
+//             echo "========pipeline execution failed========"
+//         }
+//     }
 
-}
+// }
 
 def getEnvironment(String branch, String BRANCH_DEV, String BRANCH_PROD) {
         if (branch == BRANCH_PROD) {
