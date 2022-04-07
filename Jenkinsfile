@@ -136,7 +136,7 @@ def getEnvironment(String branch, String BRANCH_DEV, String BRANCH_STAGE, String
         if (branch == BRANCH_DEV) {
             return "dev"
         }
-        return "${branch}"
+        return branch
     }
 
 // def getRegion(String branchOrTag, String BRANCH_DEV, String BRANCH_PROD) {
