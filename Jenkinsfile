@@ -70,26 +70,27 @@ pipeline{
         }
     }     
 }
+}
           
-//     post{
+    post{
         
-//         cleanup{
-//             echo "cleanup"
-//             cleanWs()
-//             dir("${env.WORKSPACE}@tmp") {
-//       deleteDir()
-//     }
-//         }
-//         success{
-//             echo "========pipeline executed successfully ========"
+        cleanup{
+            echo "cleanup"
+            cleanWs()
+            dir("${env.WORKSPACE}@tmp") {
+      deleteDir()
+    }
+        }
+        success{
+            echo "========pipeline executed successfully ========"
             
-//         }
-//         failure{
-//             echo "========pipeline execution failed========"
-//         }
-//     }
+        }
+        failure{
+            echo "========pipeline execution failed========"
+        }
+    }
 
-// }
+}
 
 def getEnvironment(String branch, String BRANCH_DEV, String BRANCH_PROD) {
         if (branch == BRANCH_PROD) {
@@ -105,9 +106,6 @@ def getRegion(String branchOrTag, String BRANCH_DEV, String BRANCH_PROD) {
     if (branchOrTag == BRANCH_PROD) {
     return "us-east-1"
     }
-    if (branchOrTag == BRANCH_STAGE) {
-    return "${AWS_REGION_STAGE}"
-  }
   if (branchOrTag == BRANCH_DEV) {
     return "us-east-2"
     }
