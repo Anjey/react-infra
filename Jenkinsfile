@@ -31,7 +31,7 @@ pipeline{
 
         stage("Prod") {
             steps {
-                echo "${BRANCH_PROD}"
+                echo "${env.BRANCH_PROD}"
             }
         }
         stage("dev") {
