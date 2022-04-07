@@ -1,9 +1,9 @@
 pipeline{
     agent any
     parameters {
-        string(defaultValue: "", name: 'BRANCH_DEV')
+        string(defaultValue: "dev", name: 'BRANCH_DEV')
         string(defaultValue: "", name: 'BRANCH_STAGE')
-        string(defaultValue: "", name: 'BRANCH_PROD')
+        string(defaultValue: "main", name: 'BRANCH_PROD')
     }
 
     environment {
@@ -42,7 +42,7 @@ pipeline{
 
         stage("ENV") {
             steps {
-                echo "${env}"
+                echo "${env.env}"
             }
         }
 
