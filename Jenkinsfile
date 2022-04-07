@@ -1,5 +1,12 @@
 pipeline{
     agent any
+
+    options {
+        buildDiscarder logRotator( 
+                    daysToKeepStr: '16', 
+                    numToKeepStr: '10'
+            )
+
     parameters {
         string(defaultValue: "dev", name: 'BRANCH_DEV')
         string(defaultValue: "", name: 'BRANCH_STAGE')
@@ -42,7 +49,7 @@ pipeline{
 
         stage("AWS_REGION") {
             steps {
-                echo "${env.AWS_REGION}"
+                echo "${AWS_REGION}"
             }
         }
 
@@ -97,7 +104,7 @@ pipeline{
                                     
                                     {
                                                     sh '''
-                    cd ./adudych/$[AWS_REGION}/${env}/cloudfront && terragrunt apply -auto-approve
+                    cd ./adudych/${AWS_REGION}/${env}/cloudfront && terragrunt apply -auto-approve
                     '''
                 }
             }
