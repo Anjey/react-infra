@@ -7,7 +7,7 @@ pipeline{
     }
 
     environment {
-        env=getEnvironment(branch, env.BRANCH_DEV, env.BRANCH_STAGE, env.BRANCH_PROD)
+        env=getEnvironment(env.BRANCH_NAME, env.BRANCH_DEV, env.BRANCH_STAGE, env.BRANCH_PROD)
         // AWS_REGION=getRegion(branch, env.BRANCH_DEV, env.BRANCH_PROD)
     }
 
@@ -46,9 +46,9 @@ pipeline{
             }
         }
 
-        stage("AWS_REGION") {
+        stage("BRANCH_NAME") {
             steps {
-                echo "${AWS_REGION}"
+                echo "${env.BRANCH_NAME}"
             }
         }
 
