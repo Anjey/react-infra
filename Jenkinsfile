@@ -8,7 +8,7 @@ pipeline{
 
     environment {
         env=getEnvironment(env.BRANCH_NAME, env.BRANCH_DEV, env.BRANCH_STAGE, env.BRANCH_PROD)
-        // AWS_REGION=getRegion(branch, env.BRANCH_DEV, env.BRANCH_PROD)
+        AWS_REGION=getRegion(branch, env.BRANCH_DEV, env.BRANCH_PROD)
     }
 
 
@@ -72,7 +72,7 @@ pipeline{
                                     
                                     {
                                                     sh '''
-                    cd ./adudych/us-east-2/${env}/cloudfront && terragrunt init && terragrunt plan
+                    cd ./adudych/${AWS_REGION}/${env}/cloudfront && terragrunt init && terragrunt plan
                     '''
                 }
             }
@@ -97,7 +97,7 @@ pipeline{
                                     
                                     {
                                                     sh '''
-                    cd ./adudych/us-east-2/${env}/cloudfront && terragrunt apply -auto-approve
+                    cd ./adudych/$[AWS_REGION}/${env}/cloudfront && terragrunt apply -auto-approve
                     '''
                 }
             }
@@ -106,23 +106,23 @@ pipeline{
 }
 }
           
-    post{
+    // post{
         
-        cleanup{
-            echo "cleanup"
-            cleanWs()
-            dir("${env.WORKSPACE}@tmp") {
-      deleteDir()
-    }
-        }
-        success{
-            echo "========pipeline executed successfully ========"
+    //     cleanup{
+    //         echo "cleanup"
+    //         cleanWs()
+    //         dir("${env.WORKSPACE}@tmp") {
+    //   deleteDir()
+    // }
+    //     }
+    //     success{
+    //         echo "========pipeline executed successfully ========"
             
-        }
-        failure{
-            echo "========pipeline execution failed========"
-        }
-    }
+    //     }
+    //     failure{
+    //         echo "========pipeline execution failed========"
+    //     }
+    // }
 
 
 
@@ -139,11 +139,11 @@ def getEnvironment(String branch, String BRANCH_DEV, String BRANCH_STAGE, String
         return branch
     }
 
-// def getRegion(String branchOrTag, String BRANCH_DEV, String BRANCH_PROD) {
-//     if (branchOrTag == BRANCH_PROD) {
-//     return "us-east-1"
-//     }
-//   if (branchOrTag == BRANCH_DEV) {
-//     return "us-east-2"
-//     }
-// }
+def getRegion(String branchOrTag, String BRANCH_DEV, String BRANCH_PROD) {
+    if (branchOrTag == BRANCH_PROD) {
+    return "us-east-1"
+    }
+  if (branchOrTag == BRANCH_DEV) {
+    return "us-east-2"
+    }
+}
