@@ -24,7 +24,6 @@ pipeline{
             steps {
                 deleteDir()
                 checkout scm
-                // sh "printenv"
             }
         }
 
