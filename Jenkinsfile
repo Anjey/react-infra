@@ -19,6 +19,12 @@ pipeline{
                 checkout scm
             }
         }
+
+        stage("Env Variables") {
+            steps {
+                sh "printenv"
+            }
+        }
         
          stage ('terragrunt plan'){
             when {
