@@ -6,6 +6,7 @@ pipeline{
                     daysToKeepStr: '16', 
                     numToKeepStr: '10'
             )
+    }
 
     parameters {
         string(defaultValue: "dev", name: 'BRANCH_DEV')
@@ -111,7 +112,7 @@ pipeline{
     }     
 }   
 }
-}
+
           
     // post{
         
