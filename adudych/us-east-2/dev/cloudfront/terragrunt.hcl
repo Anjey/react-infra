@@ -20,7 +20,7 @@ include {
 
 inputs = {
   environment             = local.environment
-  domain_redirect_enabled = true
+  domain_redirect_enabled = false
 
   cdn_path_pattern     = ["/data", "/api"]
   dns_name             = "react-project"
