@@ -23,9 +23,9 @@ include {
 inputs = {
   ami_owner_account_ids   = [local.account_id]
   environment             = local.environment
-  domain_redirect_enabled = true
+  domain_redirect_enabled = false
 
-  cdn_path_pattern     = ["/data"]
+  cdn_path_pattern     = ["/data", "/api"]
   dns_name             = "react-project"
   redirect_domain_name = "react-project.romexsoft.net" #Not used if domain_redirect_enabled is false
   main_domain_name     = "www.react-project.romexsoft.net"
